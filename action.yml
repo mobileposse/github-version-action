@@ -1,0 +1,12 @@
+name: 'Version Incrementer'
+description: 'Crawls the repository tags and outputs an incremented version number'
+author: 'MobilePossse'
+inputs:
+  repo_token:
+    description: 'The GITHUB_TOKEN secret'
+outputs:
+  new_version:
+    description: 'New version in v[major].[minor] format'
+runs:
+  using: 'node12'
+  main: 'lib/index.js'
