@@ -9,7 +9,6 @@ async function run() {
 
     core.info('Getting current version number from Github tags')
     const version = await getVersion(client)
-    core.info(`New version: ${version}`)
     core.setOutput('new_version', version)
   } catch (error) {
     core.error(error)
