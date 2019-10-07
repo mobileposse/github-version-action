@@ -6,7 +6,7 @@ inputs:
     description: 'The GITHUB_TOKEN secret'
 outputs:
   new_version:
-    description: 'New version in v[major].[minor] format'
+    description: 'New version in [major].[minor] format'
 runs:
   using: 'node12'
   main: 'lib/index.js'
