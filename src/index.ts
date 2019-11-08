@@ -26,10 +26,11 @@ const getVersion = async (client: github.GitHub) => {
   const tags = tagsResponse.data.map(t => t.name)
 
   for (const tag of tags) {
+    console.log(`checking tag: ${tag}`)
     const version = semver.coerce(tag)
     if (version && semver.valid(version)) {
       const newVersion = semver.inc(version, 'patch') || '0.0.0'
-      return `${semver.major(newVersion)}.${semver.minor(newVersion)}`
+      return `${semver.major(newVersion)}.${semver.minor(newVersion)}.${semver.patch(newVersion)}`
     }
   }
 
