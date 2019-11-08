@@ -12,7 +12,7 @@ This action scans the repository tags and grabs the latest semver compliant tag.
 
 ### `new_version`
 
-The time we greeted you.
+The newly incremented version number
 
 ## Example usage
 
