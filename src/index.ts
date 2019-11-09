@@ -5,10 +5,11 @@ import * as semver from 'semver'
 async function run() {
   try {
     const token = core.getInput('repo_token', { required: true })
+    const majorVersion = core.getInput('major_version', { required: true })
     const client = new github.GitHub(token)
 
     core.info('Getting current version number from Github tags')
-    const version = await getVersion(client)
+    const version = await getVersion(client, majorVersion)
     core.setOutput('new_version', version)
   } catch (error) {
     core.error(error)
@@ -16,7 +17,7 @@ async function run() {
   }
 }
 
-const getVersion = async (client: github.GitHub) => {
+const getVersion = async (client: github.GitHub, majorVersion: string) => {
   const tagsResponse = await client.repos.listTags({
     owner: github.context.repo.owner,
     repo: github.context.repo.repo,
@@ -29,8 +30,10 @@ const getVersion = async (client: github.GitHub) => {
     console.log(`checking tag: ${tag}`)
     const version = semver.coerce(tag)
     if (version && semver.valid(version)) {
-      const newVersion = semver.inc(version, 'patch') || '0.0.0'
-      return `${semver.major(newVersion)}.${semver.minor(newVersion)}.${semver.patch(newVersion)}`
+      if (version.major.toString() === majorVersion) {
+        const newVersion = semver.inc(version, 'patch') || '0.0.0'
+        return `${semver.major(newVersion)}.${semver.minor(newVersion)}.${semver.patch(newVersion)}`
+      }
     }
   }
 

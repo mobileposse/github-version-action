@@ -8,6 +8,10 @@ This action scans the repository tags and grabs the latest semver compliant tag.
 
 **Required** Github token to use for creating the release
 
+### `major_version`
+
+**Required** Filter latest tags by this major version number
+
 ## Outputs
 
 ### `new_version`
@@ -33,5 +37,5 @@ npx ncc build dist/index.js -o lib
 ## Local Testing
 
 ```
-INPUT_REPO_TOKEN='your token here' GITHUB_REPOSITORY='org/repo' node lib/index.js
+INPUT_REPO_TOKEN='your token here' INPUT_MAJOR_VERSION=61 GITHUB_REPOSITORY='org/repo' node lib/index.js
 ```
